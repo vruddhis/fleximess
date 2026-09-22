@@ -1,4 +1,16 @@
 import { useState } from 'react'; //this is a hook
+import './login.css';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+
+
+import hostel from '../assets/hostel.jpeg';
 
 function StudentLogin(){
     const [username, setUsername] = useState(''); //passing initial blank state
@@ -27,17 +39,41 @@ function StudentLogin(){
        
 
     return(
-<div>
-          <h2>Hostel Portal</h2>
-          <p>Welcome to the hostel portal! Please login to your account.</p>
+<Box className='login-container'>
+
+    <Box className="login-card">
+        <Box className="image-box">
+          <img 
+            src={hostel} 
+            alt="Hostel picture" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }}
+          />
+        </Box>
+
+        <Box className="form-box">
+
+
+        <Typography variant="h5">Hostel Portal</Typography>
+        <Typography variant="body2">Welcome back! Please login to your account.</Typography>
           <form onSubmit={handleSubmit}>
-            <input type="text" name = "username" value={username} onChange={handleChange} /> 
-            <input type="password" name="password" value={password} onChange={handleChange} /> 
 
-            <button type="submit">Login</button>
+            <Stack spacing={2}>
+            <TextField name = "username" value={username} onChange={handleChange} /> 
+            <TextField type="password" name="password" value={password} onChange={handleChange} /> 
+
+            <Button type="submit">Login</Button>
+            </Stack>
             </form> 
+            <Divider>OR</Divider>
 
-</div>
+      <a href="/admin-login">Login as admin instead</a>
+            </Box>
+
+            
+            
+          
+</Box>
+</Box>
     )
 
 }

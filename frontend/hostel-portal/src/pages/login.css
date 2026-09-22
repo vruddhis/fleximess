@@ -1,0 +1,32 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: paleturquoise;
+
+.login-card {
+  display: flex;
+  width: 800px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+
+.image-box {
+  flex: 1;
+  background-color: #edf4ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-box {
+  flex: 1;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
