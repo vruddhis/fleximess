@@ -46,7 +46,7 @@ function StudentLogin(){
           <img 
             src={hostel} 
             alt="Hostel picture" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover'}}
           />
         </Box>
 
@@ -58,15 +58,22 @@ function StudentLogin(){
           <form onSubmit={handleSubmit}>
 
             <Stack spacing={2}>
-            <TextField name = "username" value={username} onChange={handleChange} /> 
-            <TextField type="password" name="password" value={password} onChange={handleChange} /> 
-
-            <Button type="submit">Login</Button>
+                <Box>
+                <Typography variant="body2" > LDAP ID
+                                </Typography>
+            <TextField name = "username" value={username} onChange={handleChange} fullWidth/> 
+            </Box>
+            <Box>
+                <Typography variant="body2" > Password
+                                </Typography>
+            <TextField type="password" name="password" value={password} onChange={handleChange} fullWidth/> 
+</Box>
+            <Button type="submit" variant="contained">Login</Button>
             </Stack>
             </form> 
-            <Divider>OR</Divider>
-
-      <a href="/admin-login">Login as admin instead</a>
+            <Divider sx={{ my: 3 }}>OR</Divider>
+<Box style={{ textAlign: 'center' }}>
+      <a href="/admin-login">Login as admin instead</a> </Box>
             </Box>
 
             
