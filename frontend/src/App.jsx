@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import StudentLogin from './pages/StudentLogin';
 import StudentSignup from './pages/StudentSignup';
+import GuestDashboard from './pages/GuestDashboard'
 
 
 function App() {
