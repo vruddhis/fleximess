@@ -2,30 +2,25 @@
 
 ```mermaid
 flowchart TD
-    A[Login] --> B[Dashboard]
+    Z[View as guest]
+    A[Login] --> B[personalized Dashboard]
 
-    B --> C[Laundry]
-    B --> D[Complaints]
-    B --> E[Room Cleaning]
+    B --> C[edit preferences]
+    B --> D[Favourites]
+    B --> E[Log mess]
+
    
-    B --> G[Mess Extras]
-    B --> H[Announcements]
+    B --> G[History]
+    B --> H[Alerts]
 
-    C --> C1[View Machines]
-    C --> C2[Book Machine]
-    C --> C3[My Bookings]
+    C --> C1[Goals?]
+    C --> C2[Allergens?]
+    C --> C3[Ratios?]
 
-    D --> D1[View Complaints]
-    D --> D2[New Complaint]
-    D --> D3[Complaint Details]
+    Z --> D1[Browse menus]
+    Z --> D2[Search with filters]
+    
 
-    E --> E1[View Cleaning Schedule]
-    E --> E2[Request Cleaning]
-    E --> E3[My Requests]
-
-    G --> G1[View Available Extras]
-    G --> G2[Book Extra]
-    G --> G3[My Orders]
-
+    
 
 ```
