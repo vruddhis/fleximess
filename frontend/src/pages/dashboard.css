@@ -1,0 +1,12 @@
+#whatmeal {
+  display: flex;
+  gap: 16px;         
+  align-items: center;
+  margin-top: 16px;    
+  margin-bottom: 24px; 
+  flex-wrap: wrap;
+}
+
+#hostel-list{
+    display: "flex", flexDirection: "column", gap: 2
+}
