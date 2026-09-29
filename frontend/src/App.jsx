@@ -1,7 +1,8 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import StudentLogin from './pages/StudentLogin';
-import AdminLogin from './pages/AdminLogin';
+import StudentSignup from './pages/StudentSignup';
+
 
 function App() {
     return (
@@ -10,7 +11,8 @@ function App() {
         <Route path="/" element={<Navigate to="/student-login"/>} />
         
         <Route path="/student-login" element={<StudentLogin/>} />
-        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/student-signup" element={<StudentSignup/>} />
+       
       </Routes>
     </BrowserRouter>
   );

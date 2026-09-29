@@ -1,18 +1,19 @@
 import { useState } from 'react'; //this is a hook
 import './login.css';
 
+import { Link } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
 
 
 import hostel from '../assets/hostel.jpeg';
 
-function AdminLogin(){
+function StudentLogin(){
     const [username, setUsername] = useState(''); //passing initial blank state
     const [password, setPassword] = useState('');
 
@@ -53,7 +54,7 @@ function AdminLogin(){
         <Box className="form-box">
 
 
-        <Typography variant="h5">Hostel Portal</Typography>
+        <Typography variant="h5">FlexiMess Portal</Typography>
         <Typography variant="body2">Welcome back! Please login to your account.</Typography>
           <form onSubmit={handleSubmit}>
 
@@ -71,12 +72,14 @@ function AdminLogin(){
             <Button type="submit" variant="contained">Login</Button>
             </Stack>
             </form> 
-            <Divider sx={{ my: 3 }}>OR</Divider>
-<Box style={{ textAlign: 'center' }}>
-      <a href="/admin-login">Login as student instead</a> </Box>
+                        <Divider sx={{ my: 3 }}>OR</Divider>
+                        <Stack direction="row" justifyContent="center" spacing={3}>
+                            <Link to="/student-dashboard">View as guest</Link>
+                            <Link to="/student-signup">Sign up</Link>
+                        </Stack>
             </Box>
 
-            
+           
             
           
 </Box>
@@ -85,4 +88,4 @@ function AdminLogin(){
 
 }
 
-export default AdminLogin;
+export default StudentLogin;
