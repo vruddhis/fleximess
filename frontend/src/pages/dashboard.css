@@ -7,6 +7,34 @@
   flex-wrap: wrap;
 }
 
-#hostel-list{
-    display: "flex", flexDirection: "column", gap: 2
+.dashboard-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.hostel-card {
+  margin-bottom: 16px;
+}
+
+.hostel-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.hostel-card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.hostel-expand-button {
+  margin-left: auto;
+}
+
+#hostel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

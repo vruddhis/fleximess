@@ -32,6 +32,12 @@ import {useState} from 'react';
 
 const MEALS = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS'];
 const DEFAULT_KCAL = { BREAKFAST: 400, LUNCH: 600, DINNER: 500, SNACKS: 300 };
+const MEAL_SCHEDULE = [
+  { id: 'BREAKFAST', label: 'Breakfast', end: 10 },
+  { id: 'LUNCH', label: 'Lunch', end: 14 },
+  { id: 'SNACKS', label: 'Snacks', end: 18 },
+  { id: 'DINNER', label: 'Dinner', end: 24 },
+];
 
 function today(){
     const today = new Date();
@@ -40,19 +46,41 @@ function today(){
 } 
 
 
-function nextMealByTime() {
+function whichMealByTime() {
   const h = new Date().getHours();
   if (h < 10) return 'BREAKFAST';
   if (h < 14) return 'LUNCH';
   if (h < 18) return 'SNACKS';
   return 'DINNER';
-} 
+} //also we should disable meals that have already passed
 
 function aggregation(){ //after getting from API we aggregate to find what to show on the hostel lsit
 
 }
 function GuestDashboard(){
-return (<Box sx={{ maxWidth: 1100, mx: "auto", p: 3 }}>
+ //we can also use set in useState. so here we initialise it to empty state and then later as we expand or click on the expand button again we remove/add to set
+  const hostel_list = [1, 2, 3];
+  const [expandedHostelIds, setExpandedHostelIds] = useState(new Set());
+  const [selectedMeal, setSelectedMeal] = useState(whichMealByTime);
+  const currentHour = new Date().getHours();
+
+  //also from search bar whatever we search should weauto expand that hostel's menu and then highlight? or should we give results separately in popup. ig autoexpansion will be easier
+
+  function toggleHostel(hostelId) {
+    setExpandedHostelIds((currentIds) => {
+      const nextIds = new Set(currentIds);
+
+      if (nextIds.has(hostelId)) {
+        nextIds.delete(hostelId);
+      } else {
+        nextIds.add(hostelId);
+      }
+
+      return nextIds;
+    });
+  }
+
+return (<Box className="dashboard-page">
 
     
       <TextField
@@ -66,7 +94,7 @@ return (<Box sx={{ maxWidth: 1100, mx: "auto", p: 3 }}>
   <CalendarMonthIcon />
 </IconButton>
         <ButtonGroup variant="outlined"> 
-          {/* maybe a calendar icon here for the week */}
+          
           <Button>Breakfast</Button>
           <Button>Lunch</Button>
           <Button>Snacks</Button>
@@ -76,11 +104,44 @@ return (<Box sx={{ maxWidth: 1100, mx: "auto", p: 3 }}>
 
         {/* a popout (drawer) for all filters */}
       </Box>
-
-      {/* Hostel list */}
+      
+     {/* for hostels a for loop, and then we can expand also so that will need useState with parameter hostel id */}
       <Box id="hostel-list">
-  {/* for hostel in hostel_list (which we get from API) make the jsx*/}
-       
+        {hostel_list.map((hostelId) => {
+          const hostelName = `Hostel ${hostelId}`;
+
+
+          const isExpanded = expandedHostelIds.has(hostelId);
+
+          return (
+            <Card key={hostelId} className="hostel-card">
+              <CardContent className="hostel-card-header"> {/* in this display horizontal, name and aggregation to left, and arrow icon on right */}
+                <Box className="hostel-card-info">
+                  <Typography variant="h6">
+                    {hostelName}
+                  </Typography>
+                  <Typography variant="body2">
+                    some aggregation
+                  </Typography>
+                </Box>
+
+                <IconButton
+                  className="hostel-expand-button"
+                  onClick={() => toggleHostel(hostelId)}
+                >
+                  <ExpandMoreIcon/>
+                </IconButton>
+              </CardContent>
+
+              <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography>here will be menu</Typography>
+                </CardContent>
+              </Collapse>
+
+            </Card>
+          );
+        })}
       </Box>
 
     </Box>);
