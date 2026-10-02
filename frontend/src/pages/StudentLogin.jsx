@@ -74,7 +74,7 @@ function StudentLogin(){
             </form> 
                         <Divider sx={{ my: 3 }}>OR</Divider>
                         <Stack direction="row" justifyContent="center" spacing={3}>
-                            <Link to="/student-dashboard">View as guest</Link>
+                            <Link to="/dashboard">View as guest</Link>
                             <Link to="/student-signup">Sign up</Link>
                         </Stack>
             </Box>
