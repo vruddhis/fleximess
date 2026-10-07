@@ -4,6 +4,8 @@ import StudentLogin from './pages/StudentLogin';
 import StudentSignup from './pages/StudentSignup';
 import GuestDashboard from './pages/GuestDashboard'
 import StudentDashboard from './pages/StudentDashboard'
+import StudentPreferences from './pages/StudentPreferences'
+import StudentHistory from './pages/StudentHistory'
 
 
 function App() {
@@ -17,6 +19,10 @@ function App() {
        
         <Route path="/dashboard" element={<GuestDashboard/>} />
         <Route path="/student-dashboard" element={<StudentDashboard/>} />
+
+        <Route path="/preferences" element={<StudentPreferences/>} />
+
+        <Route path="/student-history" element={<StudentHistory/>} />
       </Routes>
     </BrowserRouter>
   );

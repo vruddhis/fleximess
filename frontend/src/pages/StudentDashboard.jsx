@@ -97,8 +97,10 @@ function StudentDashboard(){
     setProfileMenuAnchor(null);
   }
 
-  function handleLogout() {
-   
+  function handleLogout()
+  {
+    closeProfileMenu();
+    navigate('/student-login');
   }
 
 return (<Box className="dashboard-page">
@@ -120,11 +122,10 @@ return (<Box className="dashboard-page">
         anchorEl={profileMenuAnchor}
         open={profileMenuOpen}
         onClose={closeProfileMenu}
-        MenuListProps={{ 'aria-labelledby': 'profile-menu-button' }}
       >
 
-        <MenuItem onClick={closeProfileMenu}>Edit preferences</MenuItem>
-        <MenuItem onClick={handleLogout}>Log out</MenuItem>
+        <MenuItem onClick={() => navigate('/preferences')}>Edit preferences</MenuItem>
+        <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
       </Menu>
 
     </Box>
