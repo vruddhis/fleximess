@@ -125,6 +125,10 @@ return (<Box className="dashboard-page">
       >
 
         <MenuItem onClick={() => navigate('/preferences')}>Edit preferences</MenuItem>
+        
+        <MenuItem onClick={() => navigate('/student-log')}> Log a meal </MenuItem>
+        <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
+
         <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
       </Menu>
 
