@@ -13,6 +13,18 @@
   padding: 24px;
 }
 
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: paleturquoise;
+  padding: 16px 24px;
+  width: 100vw;
+  box-sizing: border-box;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: 24px;
+}
+
 .hostel-card {
   margin-bottom: 16px;
 }

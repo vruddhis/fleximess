@@ -7,6 +7,7 @@ import {Box,
   CardContent,
   Collapse,
   IconButton,
+  InputAdornment,
   TextField,
   Typography,
   Drawer,
@@ -50,9 +51,9 @@ function aggregation(){ //after getting from API we aggregate to find what to sh
 function GuestDashboard(){
  //we can also use set in useState. so here we initialise it to empty state and then later as we expand or click on the expand button again we remove/add to set
   const hostel_list = [
-    { id: 1, name: 'Hostel 1', distance: 0.8, rating: 4.8, type: 'Vegetarian', available: true },
-    { id: 2, name: 'Hostel 2', distance: 1.4, rating: 4.5, type: 'Mixed', available: true },
-    { id: 3, name: 'Hostel 3', distance: 2.1, rating: 4.2, type: 'Non-vegetarian', available: false },
+   { id: 1, name: 'Hostel 1'},
+    { id: 2, name: 'Hostel 2'},
+    { id: 3, name: 'Hostel 3'},
   ];
   const [expandedHostelIds, setExpandedHostelIds] = useState(new Set());
 
@@ -84,13 +85,38 @@ function GuestDashboard(){
   }
 
 return (<Box className="dashboard-page">
+  <Box className="dashboard-header">
 
+      <Typography variant="h5">
+        Flexi Mess
+      </Typography>
+
+      <Button
+        component={Link}
+        to="/student-login"
+        variant="outlined"
+      >
+        Login
+      </Button>
+
+    </Box>
     
       <TextField
         fullWidth
         placeholder="Search for a food item"
         value={searchQuery}
         onChange={(event) => setSearchQuery(event.target.value)}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton aria-label="Search food items" edge="end">
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
       />
 
  {/* we will highlight whichever one is chosen */}

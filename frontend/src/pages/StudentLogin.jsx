@@ -2,6 +2,7 @@ import { useState } from 'react'; //this is a hook
 import './login.css';
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,6 +15,7 @@ import Stack from '@mui/material/Stack';
 import hostel from '../assets/hostel.jpeg';
 
 function StudentLogin(){
+    const navigate = useNavigate();
     const [username, setUsername] = useState(''); //passing initial blank state
     const [password, setPassword] = useState('');
 
@@ -33,6 +35,8 @@ function StudentLogin(){
 //onChange is everytime a character is typed, so we need to write that function also
 
         console.log("sending login data ", { username, password })
+        localStorage.setItem('studentName', username || 'Student');
+        navigate('/student-dashboard');
         //will do hashing later
         //REST API here
 
