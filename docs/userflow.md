@@ -31,7 +31,6 @@ flowchart TD
     Z[View as guest]
     A[Login] --> B[personalized Dashboard]
     A --> C[Profile]
-
     B --> R[Mess wise nutrient calculated menu ]
     B --> D[Search by breakfast,lunch,dinner]
     B --> E[rule based Recommendation]
