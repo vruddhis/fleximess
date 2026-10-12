@@ -1,4 +1,4 @@
-
+# writing on oct 13,this is the adminflow designed for the initial project idea
 ```mermaid
 flowchart TD
     A[Admin Login] --> B[Admin Dashboard]
