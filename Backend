@@ -1,0 +1,214 @@
+ FlexiMess Backend (FastAPI)
+
+ 1. About the project
+
+FlexiMess is a project for IIT Bombay students. The idea is to help students check mess menus and nutrition information, search for a food item, get simple menu recommendations, and keep a record of the meals they eat.
+
+
+
+ 2. Technology used
+
+- **Python** – the programming language used for backend logic.
+- **FastAPI** – used to create API endpoints that the React frontend can call.
+- **SQLite** – a small database stored in a local file. It is easy to set up and does not need a separate database server.
+- **SQLAlchemy** – helps Python communicate with the database.
+- **Pydantic** – checks the format of data sent to the API.
+- **Uvicorn** – runs the FastAPI application locally.
+- **React frontend** – the existing frontend sends requests to the backend and displays the responses.
+
+We will start with SQLite for development. If the project needs to be hosted for multiple users later, the database can be changed to PostgreSQL.
+
+ 3. How the backend works
+
+1. A student opens a page in the React frontend.
+2. React sends a request to a FastAPI endpoint.
+3. FastAPI checks the request and runs the required Python code.
+4. The backend reads or updates the database using SQLAlchemy.
+5. FastAPI returns the result as JSON.
+6. React displays the result to the student.
+
+Example: when a student searches for `dosa`, the frontend sends the search word to the backend. The backend looks for matching food items in the database and returns the results.
+
+ 4. Main backend features
+
+ A. Mess menu
+- Get the list of messes.
+- View the menu for a mess.
+- Filter menu items by meal, such as breakfast, lunch or dinner.
+- Show nutrition values when they are available.
+
+ B. Food search
+- Search by food name.
+- Show the mess and meal where a matching item is available.
+
+ C. Recommendations
+- Save a student's food preferences and nutrition goals.
+- Use simple rules to rank menus based on the student's preferences and goals.
+- Show the best-matching options first.
+
+ D. Meal logging
+- Let a student record the food they ate.
+- Save the date, meal and food item.
+- Calculate daily nutrition totals from the recorded food data.
+
+ E. Student account
+- Register and log in students.
+- Keep preferences and meal logs linked to the correct student.
+- Before deployment, password handling and protected endpoints must be checked carefully.
+
+ 5. Suggested API endpoints
+
+These are the endpoints planned for the backend. The exact request and response fields may change as the frontend is connected.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/messes` | Get all messes |
+| GET | `/menus` | Get menus, optionally filtered by mess or meal |
+| GET | `/foods?q=dosa` | Search foods by name |
+| GET | `/search?q=paneer` | Find menus containing a food item |
+| POST | `/auth/signup` | Register a student |
+| POST | `/auth/login` | Log in a student |
+| GET/POST | `/preferences` | Read or save student preferences |
+| GET/POST | `/meal-logs` | View or record meals eaten |
+| GET | `/meal-logs/summary` | Get daily nutrition totals |
+| GET | `/recommendations` | Get ranked menu recommendations |
+
+ 6. Database plan
+
+The database will contain information like this:
+
+- **Student**: student ID, login details and account information.
+- **Mess**: mess ID and mess name.
+- **Food**: food name and available nutrition values, such as calories, protein, carbohydrates and fat.
+- **Menu**: mess, date and meal type.
+- **Menu item**: connects a food item to a menu and can store serving size.
+- **Preference**: a student's food preferences and nutrition goals.
+- **Meal log**: food eaten by a student, quantity and date/time.
+
+For the first version, the schema can be kept simple. It can be improved later if the project needs more detailed nutrition data or a more normalized database.
+
+ 7. Setup instructions
+
+ Requirements
+- Python 3.10 or newer
+- VS Code or another code editor
+- Terminal/Command Prompt
+
+ Install and run
+
+Open a terminal in the backend folder.
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On Windows Command Prompt:
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install the dependencies:
+
+```bash
+pip install fastapi uvicorn sqlalchemy
+```
+
+If the project has a `requirements.txt` file, use this instead:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the server (change the module path if the FastAPI file is in a different location):
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Open these URLs in the browser:
+
+- API: http://127.0.0.1:8000
+- Interactive API testing: http://127.0.0.1:8000/docs
+
+The `/docs` page lets me test the API without connecting the frontend first.
+
+ 8. Roadmap
+
+ Phase 1: Basic backend
+- Set up FastAPI and run the server.
+- Connect SQLite using SQLAlchemy.
+- Create the basic database tables.
+- Add APIs to list messes, menus and foods.
+
+### Phase 2: Search and nutrition
+- Add food search.
+- Add meal-type and mess filters.
+- Return nutrition information with menu items.
+- Check that search results match the data stored in the database.
+
+ Phase 3: Student preferences and recommendations
+- Add APIs to save and read preferences.
+- Start with a simple rule-based recommendation method.
+- Rank menus based on the student's selected preferences and nutrition goals.
+- Test the recommendations with sample data.
+
+ Phase 4: Meal logging and dashboard
+- Add an API to record meals eaten.
+- Store quantity and date/time.
+- Calculate daily calories and other nutrient totals.
+- Connect the API to the frontend dashboard and charts.
+
+ Phase 5: Login and access control
+- Complete student signup and login.
+- Protect personal preferences and meal logs so one student cannot access another student's data.
+- Hash passwords securely.
+- Add admin-only access for adding or changing mess menus.
+
+ Phase 6: Frontend integration and testing
+- Connect React pages to the backend APIs.
+- Test each endpoint using `/docs`.
+- Test the main user flow from login to menu search and meal logging.
+- Fix errors and add useful validation messages.
+
+ Phase 7: Final improvements
+- Use PostgreSQL if needed for deployment.
+- Add automated tests.
+- Add real and verified menu/nutrition data.
+- Configure deployment and environment variables.
+- Update the README with the final API details.
+
+ 9. Testing checklist
+
+- [ ] The FastAPI server starts without errors.
+- [ ] `/docs` opens successfully.
+- [ ] The mess list is returned.
+- [ ] Menu data is returned for the selected meal or mess.
+- [ ] Food search returns matching items.
+- [ ] Invalid input gives a clear error.
+- [ ] A student's preferences can be saved and retrieved.
+- [ ] Meal logs are saved with the correct student and date.
+- [ ] Daily nutrition totals are calculated correctly.
+- [ ] Personal endpoints are protected before the project is deployed.
+
+ 10. Current limitations and next steps
+
+This  describes the planned backend and the order in which we will build it. Some features may still need implementation and testing, depending on the current code.
+
+The first goal is to get FastAPI running and connect the menu and food-search APIs. After that, We will work on preferences, recommendations and meal logging. We will use sample data while developing and replace it with verified mess menu and nutrition data when available.
+
+Authentication should not be treated as production-ready until password hashing, token handling and access permissions have been tested. The backend should also not be exposed publicly with development-only endpoints enabled.
