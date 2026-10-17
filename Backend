@@ -10,7 +10,7 @@ FlexiMess is a project for IIT Bombay students. The idea is to help students che
 
 - **Python** – the programming language used for backend logic.
 - **FastAPI** – used to create API endpoints that the React frontend can call.
-- **SQLite** – a small database stored in a local file. It is easy to set up and does not need a separate database server.
+- **PostgreSQL** – a small database stored in a local file. It is easy to set up and does not need a separate database server.
 - **SQLAlchemy** – helps Python communicate with the database.
 - **Pydantic** – checks the format of data sent to the API.
 - **Uvicorn** – runs the FastAPI application locally.
