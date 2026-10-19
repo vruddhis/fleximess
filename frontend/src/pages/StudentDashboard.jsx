@@ -188,7 +188,10 @@ return (<Box className="dashboard-page">
 
           {MEAL_SCHEDULE.map((meal) => {
             {/*disabling is based on if end time has passed*/}
-            const hasPassed = currentHour >= meal.end;
+
+            const isToday = selectedDay === today();
+
+            const hasPassed = isToday && currentHour >= meal.end;
 
             return (
               <Button
@@ -227,7 +230,7 @@ return (<Box className="dashboard-page">
             </IconButton>
           </Box>
           <Divider />
-
+          {/* maybe a for loop now for all the sorting and filtering criteria*/}
        
         </Box>
       </Drawer>
