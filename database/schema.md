@@ -14,6 +14,7 @@ Assumptions and decisions:
 2.menus
 Purpose: Represents a particular mess's menu for a specific date and meal type.
 
+
 Columns:
 menu_id: Unique identifier for a menu record; primary key.
 mess_id: References the mess providing the menu; foreign key.
