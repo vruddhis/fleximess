@@ -14,6 +14,7 @@ import {Box,
   Divider,
   Menu,
   MenuItem,
+  Slider,
 } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -33,6 +34,9 @@ import { useState } from 'react';
 const MEALS = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS'];
 const DEFAULT_KCAL = { BREAKFAST: 400, LUNCH: 600, DINNER: 500, SNACKS: 300 };
 const MEAL_SCHEDULE = [{id: 'BREAKFAST', label: 'Breakfast', end: 10}, {id: 'LUNCH', label: 'Lunch', end: 14}, {id: 'SNACKS', label: 'Snacks', end: 18}, {id: 'DINNER', label: 'Dinner', end: 22}];
+//const ratios = 
+
+//const [calorieTarget, setCalorieTarget] = useState(2000);
 
 
 function today(){
@@ -188,7 +192,10 @@ return (<Box className="dashboard-page">
 
           {MEAL_SCHEDULE.map((meal) => {
             {/*disabling is based on if end time has passed*/}
-            const hasPassed = currentHour >= meal.end;
+
+            const isToday = selectedDay === today();
+
+            const hasPassed = isToday && currentHour >= meal.end;
 
             return (
               <Button
@@ -227,11 +234,18 @@ return (<Box className="dashboard-page">
             </IconButton>
           </Box>
           <Divider />
-
+          {/* maybe a for loop now for all the sorting and filtering criteria*/}
        
         </Box>
       </Drawer>
-      
+
+    <Box className="note">
+    <Typography variant="body2">
+   Dislaimer: This uses default meal portion ratios
+    and a daily reference intake of 2000 kcal.
+    Actual nutrition varies by serving size.
+  </Typography>
+</Box>
      {/* for hostels a for loop, and then we can expand also so that will need useState with parameter hostel id */}
       <Box id="hostel-list">
         {hostel_list.map((hostel) => {
