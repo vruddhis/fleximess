@@ -1,0 +1,45 @@
+"table_name","column_name","data_type","is_nullable","column_default"
+"food_categories","category_id","integer","NO",NULL
+"food_categories","category_name","character varying","NO",NULL
+"foods","food_id","bigint","NO",NULL
+"foods","food_name","character varying","NO",NULL
+"foods","category_id","integer","YES",NULL
+"foods","description","text","YES",NULL
+"menu_details","mess_name","character varying","YES",NULL
+"menu_details","menu_date","date","YES",NULL
+"menu_details","meal_type","character varying","YES",NULL
+"menu_details","food_name","character varying","YES",NULL
+"menu_details","category_name","character varying","YES",NULL
+"menu_details","serving_weight_g","numeric","YES",NULL
+"menu_details","serving_description","character varying","YES",NULL
+"menu_details","calories_kcal","numeric","YES",NULL
+"menu_details","protein_g","numeric","YES",NULL
+"menu_details","carbs_g","numeric","YES",NULL
+"menu_details","fat_g","numeric","YES",NULL
+"menu_details","fiber_g","numeric","YES",NULL
+"menu_details","sugar_g","numeric","YES",NULL
+"menu_details","confidence","character varying","YES",NULL
+"menu_details","scraped_at","timestamp with time zone","YES",NULL
+"menu_items","menu_id","bigint","NO",NULL
+"menu_items","food_id","bigint","NO",NULL
+"menu_items","serving_weight_g","numeric","YES",NULL
+"menu_items","serving_description","character varying","YES",NULL
+"menus","menu_id","bigint","NO",NULL
+"menus","mess_id","integer","NO",NULL
+"menus","menu_date","date","NO",NULL
+"menus","meal_type","character varying","NO",NULL
+"menus","scraped_at","timestamp with time zone","NO","CURRENT_TIMESTAMP"
+"messes","mess_id","integer","NO",NULL
+"messes","mess_name","character varying","NO",NULL
+"nutrition","nutrition_id","bigint","NO",NULL
+"nutrition","food_id","bigint","NO",NULL
+"nutrition","basis_amount","numeric","NO","100"
+"nutrition","basis_unit","character varying","NO","'g'::character varying"
+"nutrition","calories_kcal","numeric","YES",NULL
+"nutrition","protein_g","numeric","YES",NULL
+"nutrition","carbs_g","numeric","YES",NULL
+"nutrition","fat_g","numeric","YES",NULL
+"nutrition","fiber_g","numeric","YES",NULL
+"nutrition","sugar_g","numeric","YES",NULL
+"nutrition","source","text","YES",NULL
+"nutrition","confidence","character varying","YES",NULL
