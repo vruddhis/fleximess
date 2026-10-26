@@ -24,6 +24,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { Link } from 'react-router-dom';
 import {useState} from 'react';
+import { getISTDay, getISTHour } from '../utils/date';
 
 //food items and hostels all fetched by API
 
@@ -33,12 +34,12 @@ const MEAL_SCHEDULE = [{id: 'BREAKFAST', label: 'Breakfast', end: 10}, {id: 'LUN
 
 
 function today(){
-  return new Date().getDay();}//returns numbers 1 to 0, so we need to map these to monday, tuesday, etc
+  return getISTDay();}//returns numbers 1 to 0, so we need to map these to monday, tuesday, etc
 
 const WEEK_DAYS = [{id: 1, label: 'Monday'}, {id: 2, label: 'Tuesday'}, {id: 3, label: 'Wednesday'}, {id: 4, label: 'Thursday'}, {id: 5, label: 'Friday'}, {id: 6, label: 'Saturday'}, {id: 0, label: 'Sunday'}];
 
 function whichMealByTime() {
-  const h = new Date().getHours();
+  const h = getISTHour();
   if (h < 10) return 'BREAKFAST';
   if (h < 14) return 'LUNCH';
   if (h < 18) return 'SNACKS';
@@ -64,7 +65,7 @@ function GuestDashboard(){
   const [searchQuery, setSearchQuery] = useState(''); //to type
   
 
-  const currentHour = new Date().getHours();
+  const currentHour = getISTHour();
 
 
 
