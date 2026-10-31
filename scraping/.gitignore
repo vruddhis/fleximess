@@ -1,0 +1,4 @@
+# Scraping operational assets containing local credentials
+fleximess/scraping/run_scrape.ps1
+fleximess/scraping/scrape_log.txt
+fleximess/scraping/html_cache/

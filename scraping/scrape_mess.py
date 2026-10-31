@@ -91,6 +91,7 @@ ALIASES = {
     "chatny": "chutney", "chutey": "chutney", "chuteny": "chutney",
     "sambar": "sambhar",
     "mix pickle": "pickle",
+    "chapati": "roti", "roasted papad": "papad", "fried papad": "papad",
     "milk shake": "milkshake",
     "icecream": "ice cream",
     "sev tamatar gravy": "sev tamatar", "sev-tamatar": "sev tamatar",
