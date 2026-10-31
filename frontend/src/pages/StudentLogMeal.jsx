@@ -13,7 +13,6 @@ import {
 
 
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import "./studentlog.css";
 import { getISTDateKey } from "../utils/date";
 
 const HOSTELS  = ["1", "2"]
@@ -102,13 +101,34 @@ for (const item of loggedItems) {
 
   return (
     <Box className="student-log-page">
+
       <Box className="dashboard-header  log-header">
-        <Box>
-         
-          <Box>
+       
             <Typography variant="h5">Log your Meals</Typography>
-          </Box>
-        </Box>
+
+            <IconButton
+        id="profile-menu-button"
+        onClick={(event) => setProfileMenuAnchor(event.currentTarget)}
+      >
+        <AccountCircleIcon />
+      </IconButton>
+
+      <Menu
+        id="profile-menu"
+        anchorEl={profileMenuAnchor}
+        open={profileMenuOpen}
+        onClose={closeProfileMenu}
+      >
+
+        <MenuItem onClick={() => navigate('/preferences')}>Edit preferences</MenuItem>
+        
+        <MenuItem onClick={() => navigate('/student-log')} > Log a meal </MenuItem>
+        <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
+
+        <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
+      </Menu>
+
+         
       </Box>
 
       <Box className="log-content">

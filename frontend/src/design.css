@@ -1,0 +1,178 @@
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+#whatmeal {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dashboard-page,
+.student-log-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+}
+
+.dashboard-header,
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: paleturquoise;
+  padding: 16px 24px;
+  width: 100vw;
+  box-sizing: border-box;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: 24px;
+}
+
+.log-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.hostel-card {
+  margin-bottom: 16px;
+}
+
+.hostel-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.hostel-card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.hostel-expand-button {
+  margin-left: auto;
+}
+
+#hostel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-drawer {
+  width: min(360px, 88vw);
+  min-height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.filter-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.filter-section {
+  padding: 24px 0;
+}
+
+.filter-section-label {
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+}
+
+.filter-option {
+  padding: 10px 0;
+  color: #555;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: paleturquoise;
+}
+
+.login-card {
+  display: flex;
+  width: 750px;
+  background-color: white;
+  border-radius: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.image-box {
+  flex: 1;
+  display: flex;
+}
+
+.form-box {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.log-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.log-card {
+  height: 100%;
+}
+
+.log-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.logged-food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logged-food {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.nutrition-totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.input-field {
+  margin-bottom: 16px;
+  padding: 16px 24px;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .student-log-page {
+    padding: 0 16px 16px;
+  }
+
+  .log-header {
+    padding: 12px 16px;
+  }
+
+  .log-content {
+    grid-template-columns: 1fr;
+  }
+}
