@@ -1,6 +1,6 @@
 # FlexiMess Optimiser — FastAPI Backend
 
-This backend is designed to work with the React/Vite frontend and the PostgreSQL tables in the team project.
+This backend is designed to work with the React/Vite frontend and the PostgreSQL tables in the  project.
 
 ## 1. What is included
 
@@ -48,9 +48,9 @@ Open pgAdmin or SQL Shell (psql). Create a database named `flexi_mess`.
 CREATE DATABASE flexi_mess;
 ```
 
-If you are starting with a completely empty database, the API creates all tables automatically when it starts.
+If  starting with a completely empty database, the API creates all tables automatically when it starts.
 
-If your teammates already created the original database using `database/table_creation.sql`, open that database in pgAdmin, open Query Tool, and run `migration.sql` once. The migration adds the student tables and uniqueness constraints needed by the scraper. If you already have duplicate mess/food names, remove/merge duplicates before adding those unique constraints.
+
 
 ## 5. Configure environment
 
@@ -82,7 +82,7 @@ Stop the server with `Ctrl + C`.
 
 ## 7. Load the mess menus and nutrition
 
-Your teammates' scraper is in the project's `scraping` folder. It uses the same PostgreSQL database. Set the same `DATABASE_URL` in the terminal and run it from that folder:
+scraper is in the project's `scraping` folder. It uses the same PostgreSQL database. Set the same `DATABASE_URL` in the terminal and run it from that folder:
 
 ```powershell
 $env:DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/flexi_mess"
@@ -132,12 +132,12 @@ In Swagger, click **Authorize** and paste the token. Do not include the word `Be
 
 Signup:
 ```json
-{"name":"Priyanshi Saxena","ldap_id":"priyanshi","password":"your-password"}
+{"name":"Aprajita Singh","ldap_id":"aprajita","password":"your-password"}
 ```
 
 Login:
 ```json
-{"ldap_id":"priyanshi","password":"your-password"}
+{"ldap_id":"aprajita","password":"your-password"}
 ```
 
 Save preference:
