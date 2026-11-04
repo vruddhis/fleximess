@@ -1,6 +1,6 @@
 -- Run this against the EXISTING flexi_mess database before starting the API.
 -- It adds uniqueness required by the scraper's ON CONFLICT statements and
--- creates the student-specific tables. Back up your database first.
+-- creates the student-specific tables. Back up  database first.
 ALTER TABLE messes ADD CONSTRAINT uq_messes_mess_name UNIQUE (mess_name);
 ALTER TABLE foods ADD CONSTRAINT uq_foods_food_name UNIQUE (food_name);
 
