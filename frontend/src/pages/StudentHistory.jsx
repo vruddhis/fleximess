@@ -5,12 +5,16 @@ import {
   Card,
   CardContent,
   Divider,
+  Menu,
+  MenuItem,
   Typography,
   IconButton,
   Collapse,
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router-dom";
 import { formatISTDate, getISTDateKey } from "../utils/date";
 
 const LOG = [
@@ -35,8 +39,15 @@ function getPastDates() {
 }
 
 function StudentHistory() {
+  const navigate = useNavigate();
+  const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [expandedDates, setExpandedDates] = useState(new Set());
   const dates = getPastDates();
+  const profileMenuOpen = Boolean(profileMenuAnchor);
+
+  function closeProfileMenu() {
+    setProfileMenuAnchor(null);
+  }
 
   function toggleDate(dateKey) {
     setExpandedDates((currentDates) => {

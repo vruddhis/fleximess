@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   Divider,
+  Menu,
   MenuItem,
   TextField,
   Typography,
@@ -13,6 +14,8 @@ import {
 
 
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router-dom";
 import { getISTDateKey } from "../utils/date";
 
 const HOSTELS  = ["1", "2"]
@@ -29,6 +32,8 @@ const MEALS = ["BREAKFAST", "LUNCH", "SNACKS", "DINNER"];
 
 function StudentLogMeal() {
 
+  const navigate = useNavigate();
+  const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [date, setDate] = useState(getISTDateKey());
 
   const [mess, setMess] = useState("");
@@ -39,6 +44,12 @@ function StudentLogMeal() {
   const [quantity, setQuantity] = useState(100);
   const [loggedItems, setLoggedItems] = useState([]);
   const [saved, setSaved] = useState(false);
+
+  const profileMenuOpen = Boolean(profileMenuAnchor);
+
+  function closeProfileMenu() {
+    setProfileMenuAnchor(null);
+  }
 
   //after clicking on the button everything that has been selected
   const addFood = () => {

@@ -157,10 +157,8 @@ body,
   gap: 16px;
 }
 
-.input-field {
+.log-card .MuiTextField-root {
   margin-bottom: 16px;
-  padding: 16px 24px;
-  gap: 16px;
 }
 
 @media (max-width: 700px) {
