@@ -34,6 +34,7 @@ import { getISTDay, getISTHour } from '../utils/date';
 const MEALS = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS'];
 const DEFAULT_KCAL = { BREAKFAST: 400, LUNCH: 600, DINNER: 500, SNACKS: 300 };
 const MEAL_SCHEDULE = [{id: 'BREAKFAST', label: 'Breakfast', end: 10}, {id: 'LUNCH', label: 'Lunch', end: 14}, {id: 'SNACKS', label: 'Snacks', end: 18}, {id: 'DINNER', label: 'Dinner', end: 22}];
+const SORT_OPTIONS = ['High protein', 'High fiber', 'Low sugar', 'Low calorie'];
 //const ratios = 
 
 //const [calorieTarget, setCalorieTarget] = useState(2000);
@@ -75,6 +76,7 @@ function StudentDashboard(){
   const [showDays, setShowDays] = useState(false); //is calendar open or close
   const [filterOpen,setFilterOpen] = useState(false); //will open up the drawer
   const [searchQuery, setSearchQuery] = useState(''); //whenever even one character changes
+  const [sortPreferences, setSortPreferences] = useState([]);
   
 
   const currentHour = getISTHour(); 
@@ -97,6 +99,18 @@ function StudentDashboard(){
 
   function closeProfileMenu() {
     setProfileMenuAnchor(null);
+  }
+
+  function toggleSortPreference(option) {
+    setSortPreferences((currentPreferences) => {
+      if (currentPreferences.includes(option)) {
+        return currentPreferences.filter((preference) => preference !== option);
+      }
+
+      return currentPreferences.length < 2
+        ? [...currentPreferences, option]
+        : currentPreferences;
+    });
   }
 
   function handleLogout()
@@ -232,8 +246,30 @@ return (<Box className="dashboard-page">
             </IconButton>
           </Box>
           <Divider />
-          {/* maybe a for loop now for all the sorting and filtering criteria*/}
-       
+          <Typography variant="subtitle1" sx={{ mt: 2 }}>
+            Sort priorities
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Select up to two, in priority order.
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
+            {SORT_OPTIONS.map((option) => {
+              const preferenceIndex = sortPreferences.indexOf(option);
+
+              return (
+                <Button
+                  key={option}
+                  variant={preferenceIndex === -1 ? 'outlined' : 'contained'}
+                  onClick={() => toggleSortPreference(option)}
+                  disabled={preferenceIndex === -1 && sortPreferences.length === 2}
+                >
+                  {preferenceIndex === -1
+                    ? option
+                    : `${preferenceIndex + 1}. ${option}`}
+                </Button>
+              );
+            })}
+          </Box>
         </Box>
       </Drawer>
 
