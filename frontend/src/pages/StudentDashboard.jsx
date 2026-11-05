@@ -1,4 +1,3 @@
-import './dashboard.css';
 
 import {Box,
   Button,
@@ -27,6 +26,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { getISTDay, getISTHour } from '../utils/date';
 
 //food items and hostels all fetched by API
 
@@ -34,14 +34,20 @@ const MEALS = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS'];
 const DEFAULT_KCAL = { BREAKFAST: 400, LUNCH: 600, DINNER: 500, SNACKS: 300 };
 const MEAL_SCHEDULE = [{id: 'BREAKFAST', label: 'Breakfast', end: 10}, {id: 'LUNCH', label: 'Lunch', end: 14}, {id: 'SNACKS', label: 'Snacks', end: 18}, {id: 'DINNER', label: 'Dinner', end: 22}];
 
+const SORT_OPTIONS = ['High protein', 'High fiber', 'Low sugar', 'Low calorie'];
+//const ratios = 
+
+//const [calorieTarget, setCalorieTarget] = useState(2000);
+
+
 
 function today(){
-  return new Date().getDay();}//returns numbers 1 to 0, so we need to map these to monday, tuesday, etc
+  return getISTDay();}//returns numbers 1 to 0, so we need to map these to monday, tuesday, etc
 
 const WEEK_DAYS = [{id: 1, label: 'Monday'}, {id: 2, label: 'Tuesday'}, {id: 3, label: 'Wednesday'}, {id: 4, label: 'Thursday'}, {id: 5, label: 'Friday'}, {id: 6, label: 'Saturday'}, {id: 0, label: 'Sunday'}];
 
 function whichMealByTime() {
-  const h = new Date().getHours();
+  const h = getISTHour();
   if (h < 10) return 'BREAKFAST';
   if (h < 14) return 'LUNCH';
   if (h < 18) return 'SNACKS';
@@ -64,18 +70,17 @@ function StudentDashboard(){
     { id: 2, name: 'Hostel 2'},
     { id: 3, name: 'Hostel 3'},
   ];
-  const [expandedHostelIds, setExpandedHostelIds] = useState(new Set());
+  const [expandedHostelIds,  setExpandedHostelIds] = useState(new Set());
 
   const [selectedMeal, setSelectedMeal] = useState(whichMealByTime); 
   const [selectedDay, setSelectedDay] = useState(today);
   const [showDays, setShowDays] = useState(false); //is calendar open or close
-  const [filterOpen, setFilterOpen] = useState(false); //will open up the drawer
+  const [filterOpen,setFilterOpen] = useState(false); //will open up the drawer
   const [searchQuery, setSearchQuery] = useState(''); //whenever even one character changes
+  const [sortPreferences, setSortPreferences] = useState([]);
   
 
-  const currentHour = new Date().getHours();
-
-
+  const currentHour = getISTHour(); 
 
   //also from search bar whatever we search should weauto expand that hostel's menu and then highlight? or should we give results separately in popup. ig autoexpansion will be easier
 
@@ -95,6 +100,18 @@ function StudentDashboard(){
 
   function closeProfileMenu() {
     setProfileMenuAnchor(null);
+  }
+
+  function toggleSortPreference(option) {
+    setSortPreferences((currentPreferences) => {
+      if (currentPreferences.includes(option)) {
+        return currentPreferences.filter((preference) => preference !== option);
+      }
+
+      return currentPreferences.length < 2
+        ? [...currentPreferences, option]
+        : currentPreferences;
+    });
   }
 
   function handleLogout()
@@ -126,7 +143,7 @@ return (<Box className="dashboard-page">
 
         <MenuItem onClick={() => navigate('/preferences')}>Edit preferences</MenuItem>
         
-        <MenuItem onClick={() => navigate('/student-log')}> Log a meal </MenuItem>
+        <MenuItem onClick={() => navigate('/student-log')} > Log a meal </MenuItem>
         <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
 
         <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
@@ -167,7 +184,7 @@ return (<Box className="dashboard-page">
 
             {WEEK_DAYS.map((day) => {
               const dayPosition = day.id === 0 ? 6 : day.id - 1;
-              const currentDayPosition = today() === 0 ? 6 : today() - 1; //ugh why are there no if else statements in react
+              const currentDayPosition= today() === 0 ? 6 : today() - 1; //ugh why are there no if else statements in react
               const hasPassed = dayPosition < currentDayPosition;
               const isSelected = selectedDay === day.id;
 
@@ -228,7 +245,34 @@ return (<Box className="dashboard-page">
           </Box>
           <Divider />
 
+          <Typography variant="subtitle1" sx={{ mt: 2 }}>
+            Sort priorities
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Select up to two, in priority order.
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
+            {SORT_OPTIONS.map((option) => {
+              const preferenceIndex = sortPreferences.indexOf(option);
+
+              return (
+                <Button
+                  key={option}
+                  variant={preferenceIndex === -1 ? 'outlined' : 'contained'}
+                  onClick={() => toggleSortPreference(option)}
+                  disabled={preferenceIndex === -1 && sortPreferences.length === 2}
+                >
+                  {preferenceIndex === -1
+                    ? option
+                    : `${preferenceIndex + 1}. ${option}`}
+                </Button>
+              );
+            })}
+          </Box>
+
+
        
+
         </Box>
       </Drawer>
       
@@ -244,7 +288,7 @@ return (<Box className="dashboard-page">
           return (
             <Card key={hostelId} className="hostel-card">
               <CardContent className="hostel-card-header"> {/* in this display horizontal, name and aggregation to left, and arrow icon on right */}
-                <Box className="hostel-card-info">
+                <Box  className="hostel-card-info">
                   <Typography variant="h6">
                     {hostelName}
                   </Typography>

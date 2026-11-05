@@ -1,5 +1,4 @@
 import { useState } from 'react'; //this is a hook
-import './login.css';
 
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
