@@ -58,9 +58,9 @@ function handlePasswordChange(event) {
                 required
               />
               <TextField
-                label="LDAP ID"
-                name="ldap"
-                value={form.ldap}
+                label="Username"
+                name="username"
+                value={form.username}
                 onChange={handleLdapChange} //so this is the event and the value here goes as name
                 fullWidth
                 required
