@@ -124,6 +124,29 @@ body,
   justify-content: center;
 }
 
+.signup-hostel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.signup-username-row {
+  display: flex;
+  gap: 8px;
+}
+
+.signup-username-check {
+  min-width: 150px;
+}
+
+.signup-divider {
+  margin-block: 24px;
+}
+
+.signup-back-link {
+  text-align: center;
+}
+
 .log-content {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -159,6 +182,26 @@ body,
 
 .log-card .MuiTextField-root {
   margin-bottom: 16px;
+}
+
+.preferences-content,
+.calorie-target-list,
+.nutrition-preference-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.preferences-content {
+  gap: 16px;
+}
+
+.calorie-target-list,
+.nutrition-preference-list {
+  gap: 8px;
+}
+
+.nutrition-preference-list {
+  margin-top: 16px;
 }
 
 @media (max-width: 700px) {
