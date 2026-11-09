@@ -28,6 +28,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { getISTDay, getISTHour } from '../utils/date';
+import { useAuth } from '../auth/authContext';
 
 //food items and hostels all fetched by API
 
@@ -60,6 +61,7 @@ function StudentDashboard(){
   //same as guest dashboard but i need to add header now
   //id of student is stored in a state
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null); //open or closed
   const profileMenuOpen = Boolean(profileMenuAnchor);
 
@@ -113,10 +115,11 @@ function StudentDashboard(){
     });
   }
 
-  function handleLogout()
-  {
+  async function handleLogout() {
     closeProfileMenu();
-    navigate('/student-login');
+    if (await logout()) {
+      navigate('/student-login', { replace: true });
+    }
   }
 
 return (<Box className="dashboard-page">
@@ -125,6 +128,7 @@ return (<Box className="dashboard-page">
       <Typography variant="h5">
         Flexi Mess
       </Typography>
+      <Typography variant="body1">Welcome, {user.username}</Typography>
 
       <IconButton
         id="profile-menu-button"
@@ -145,7 +149,7 @@ return (<Box className="dashboard-page">
         <MenuItem onClick={() => navigate('/student-log')} > Log a meal </MenuItem>
         <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
 
-        <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
+        <MenuItem onClick={handleLogout}> Log out </MenuItem>
       </Menu>
 
     </Box>

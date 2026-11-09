@@ -16,6 +16,7 @@ import {
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/authContext";
 import { getISTDateKey } from "../utils/date";
 
 const HOSTELS  = ["1", "2"]
@@ -33,6 +34,7 @@ const MEALS = ["BREAKFAST", "LUNCH", "SNACKS", "DINNER"];
 function StudentLogMeal() {
 
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [date, setDate] = useState(getISTDateKey());
 
@@ -49,6 +51,13 @@ function StudentLogMeal() {
 
   function closeProfileMenu() {
     setProfileMenuAnchor(null);
+  }
+
+  async function handleLogout() {
+    closeProfileMenu();
+    if (await logout()) {
+      navigate("/student-login", { replace: true });
+    }
   }
 
   //after clicking on the button everything that has been selected
@@ -136,7 +145,7 @@ for (const item of loggedItems) {
         <MenuItem onClick={() => navigate('/student-log')} > Log a meal </MenuItem>
         <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
 
-        <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
+        <MenuItem onClick={handleLogout}> Log out </MenuItem>
       </Menu>
 
          

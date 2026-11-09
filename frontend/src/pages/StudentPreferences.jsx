@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/authContext";
 
 const MEALS = ["Breakfast", "Lunch", "Snacks", "Dinner"];
 const NUTRITION_PREFERENCES = [
@@ -23,6 +24,7 @@ const NUTRITION_PREFERENCES = [
 
 function StudentPreferences() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
 
@@ -33,6 +35,13 @@ function StudentPreferences() {
   const [nutritionPreferences, setNutritionPreferences] = useState([]); //up to 2, can be 0
 
   const profileMenuOpen = Boolean(profileMenuAnchor);
+
+  async function handleLogout() {
+    setProfileMenuAnchor(null);
+    if (await logout()) {
+      navigate("/student-login", { replace: true });
+    }
+  }
 
   function toggleNutritionPreference(preference) {
     setNutritionPreferences((currentPreferences) => {
@@ -76,7 +85,7 @@ function StudentPreferences() {
           <MenuItem onClick={() => navigate("/student-history")}>
             See history
           </MenuItem>
-          <MenuItem onClick={() => navigate("/student-login")}>
+          <MenuItem onClick={handleLogout}>
             Log out
           </MenuItem>
         </Menu>

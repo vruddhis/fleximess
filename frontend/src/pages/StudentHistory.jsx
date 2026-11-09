@@ -15,6 +15,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/authContext";
 import { formatISTDate, getISTDateKey } from "../utils/date";
 
 const LOG = [
@@ -40,6 +41,7 @@ function getPastDates() {
 
 function StudentHistory() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [expandedDates, setExpandedDates] = useState(new Set());
   const dates = getPastDates();
@@ -47,6 +49,13 @@ function StudentHistory() {
 
   function closeProfileMenu() {
     setProfileMenuAnchor(null);
+  }
+
+  async function handleLogout() {
+    closeProfileMenu();
+    if (await logout()) {
+      navigate("/student-login", { replace: true });
+    }
   }
 
   function toggleDate(dateKey) {
@@ -87,7 +96,7 @@ function StudentHistory() {
         <MenuItem onClick={() => navigate('/student-log')} > Log a meal </MenuItem>
         <MenuItem onClick={() => navigate('/student-history')}> See history </MenuItem>
 
-        <MenuItem onClick={() => navigate('/student-login')}> Log out </MenuItem>
+        <MenuItem onClick={handleLogout}> Log out </MenuItem>
       </Menu>
       
       </Box>
