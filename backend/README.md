@@ -1,6 +1,6 @@
 # FlexiMess – fresh backend implementation
 
-This backend was written independently. It does not import or rely on the repository's previous `main.py`, `models.py`, `schemas.py`, or `security.py`.
+
 
 ## Stack
 - FastAPI + SQLAlchemy 2
