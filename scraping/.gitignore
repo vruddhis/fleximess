@@ -1,0 +1,4 @@
+# Scraping operational assets containing local credentials
+run_scrape.ps1
+scrape_log.txt
+html_cache/

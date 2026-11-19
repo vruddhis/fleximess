@@ -1,0 +1,6 @@
+"from_table","from_column","to_table","to_column"
+"foods","category_id","food_categories","category_id"
+"menu_items","food_id","foods","food_id"
+"menu_items","menu_id","menus","menu_id"
+"menus","mess_id","messes","mess_id"
+"nutrition","food_id","foods","food_id"

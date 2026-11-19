@@ -13,7 +13,6 @@ import {Box,
   Divider,
   Menu,
   MenuItem,
-  Slider,
 } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -35,10 +34,9 @@ import { useAuth } from '../auth/authContext';
 const MEALS = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS'];
 const DEFAULT_KCAL = { BREAKFAST: 400, LUNCH: 600, DINNER: 500, SNACKS: 300 };
 const MEAL_SCHEDULE = [{id: 'BREAKFAST', label: 'Breakfast', end: 10}, {id: 'LUNCH', label: 'Lunch', end: 14}, {id: 'SNACKS', label: 'Snacks', end: 18}, {id: 'DINNER', label: 'Dinner', end: 22}];
-const SORT_OPTIONS = ['High protein', 'High fiber', 'Low sugar', 'Low calorie'];
-//const ratios = 
 
-//const [calorieTarget, setCalorieTarget] = useState(2000);
+const SORT_OPTIONS = ['High protein', 'High fiber', 'Low sugar', 'Low calorie'];
+
 
 
 function today(){
@@ -208,10 +206,7 @@ return (<Box className="dashboard-page">
 
           {MEAL_SCHEDULE.map((meal) => {
             {/*disabling is based on if end time has passed*/}
-
-            const isToday = selectedDay === today();
-
-            const hasPassed = isToday && currentHour >= meal.end;
+            const hasPassed = currentHour >= meal.end;
 
             return (
               <Button
