@@ -228,54 +228,7 @@ return (<Box className="dashboard-page">
           
         </ButtonGroup>
 
-        <Button
-          className="filter-trigger"
-          variant="outlined"
-          startIcon={<TuneIcon />}
-          onClick={() => setFilterOpen(true)}>
-          Sort & filter
-        </Button>
-      </Box>
-
-      <Drawer
-        anchor="right"
-        open={filterOpen}
-        onClose={() => setFilterOpen(false)}
-      >
-        <Box className="filter-drawer">
-          <Box className="filter-drawer-header">
-            <Typography variant="h6">Sort & filter</Typography>
-            <IconButton onClick={() => setFilterOpen(false)}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-          <Divider />
-          <Typography variant="subtitle1" sx={{ mt: 2 }}>
-            Sort priorities
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Select up to two, in priority order.
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
-            {SORT_OPTIONS.map((option) => {
-              const preferenceIndex = sortPreferences.indexOf(option);
-
-              return (
-                <Button
-                  key={option}
-                  variant={preferenceIndex === -1 ? 'outlined' : 'contained'}
-                  onClick={() => toggleSortPreference(option)}
-                  disabled={preferenceIndex === -1 && sortPreferences.length === 2}
-                >
-                  {preferenceIndex === -1
-                    ? option
-                    : `${preferenceIndex + 1}. ${option}`}
-                </Button>
-              );
-            })}
-          </Box>
-        </Box>
-      </Drawer>
+ 
 
     <Box className="note">
     <Typography variant="body2">
