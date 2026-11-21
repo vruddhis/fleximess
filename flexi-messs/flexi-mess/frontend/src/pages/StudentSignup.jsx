@@ -1,0 +1,106 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
+import hostel from '../assets/hostel.jpeg';
+import { useAuth } from '../auth/authContext';
+
+function StudentSignup() {
+  const [form, setForm] = useState({ name: '', ldap: '', password: '' }); //setForm is a trigger function. we can't do form.name directly to change
+  const navigate = useNavigate();
+  const { signup } = useAuth();
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+function handleNameChange(event) {
+  const value = event.target.value;
+  setForm({ ...form, name: value }); //...form is the previous state snapshot. 
+}
+
+function handleLdapChange(event) {
+  const value = event.target.value;
+  setForm({ ...form, ldap: value });
+}
+
+function handlePasswordChange(event) {
+  const value = event.target.value;
+  setForm({ ...form, password: value });
+}
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+    try {
+      await signup(form.name, form.ldap, form.password);
+      navigate('/student-dashboard', { replace: true });
+    } catch (signupError) {
+      setError(signupError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <Box className="login-container">
+      <Box className="login-card">
+        <Box className="image-box">
+          <img
+            src={hostel}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </Box>
+
+        <Box className="form-box">
+          <Typography variant="h5">Create your account</Typography>
+          <Typography variant="body2">Sign up to access the FlexiMess Portal.</Typography>
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+              {error && <Alert severity="error">{error}</Alert>}
+              <TextField
+                label="Full name"
+                name="name"
+                value={form.name}
+                onChange={handleNameChange}
+                fullWidth
+                required
+              />
+              <TextField
+                label="Username"
+                name="username"
+                value={form.ldap}
+                onChange={handleLdapChange} //so this is the event and the value here goes as name
+                fullWidth
+                required
+              />
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handlePasswordChange}
+                fullWidth
+                required
+              />
+              <Button type="submit" variant="contained" disabled={isSubmitting}>Sign up</Button>
+            </Stack>
+          </form>
+          <Divider sx={{ my: 3 }}>OR</Divider>
+          <Box style={{ textAlign: 'center' }}>
+            <Link to="/student-login">Back to login</Link>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+export default StudentSignup;
