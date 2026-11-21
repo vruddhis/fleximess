@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Box,
@@ -19,10 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/authContext";
 import { formatISTDate, getISTDateKey } from "../utils/date";
 
-const LOG = [
-  { itemID: 1, name: "helmet the crab", hostelID: 1, grams: 100, date: "2026-10-21", protein: 12, fibre: 23 },
-  { itemID: 1, name: "vietnamese pho", hostelID: 2, grams: 300, date: "2026-10-21", protein: 32, fibre: 2 },
-];
+const API_BASE_URL = ("http://localhost:8000");
 
 function getPastDates() {
   const dates = [];
@@ -45,8 +42,26 @@ function StudentHistory() {
   const { logout } = useAuth();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [expandedDates, setExpandedDates] = useState(new Set());
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState("");
   const dates = getPastDates();
   const profileMenuOpen = Boolean(profileMenuAnchor);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/history`, { credentials: "include" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok) {
+          throw new Error(result.detail || `Request failed (${response.status})`);
+        }
+        setLogs(result);
+      })
+      .catch((error) => {
+        setApiError(`Could not load meal history: ${error.message}`);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   function closeProfileMenu() {
     setProfileMenuAnchor(null);
@@ -103,8 +118,10 @@ function StudentHistory() {
       </Box>
 
       <Box id="hostel-list">
+        {apiError && <Typography color="error" role="alert">{apiError}</Typography>}
+        {loading && <Typography>Loading meal history…</Typography>}
         {dates.map((date) => {
-          const dayLogs = LOG.filter((item) => item.date.slice(0, 10) === date.key);
+          const dayLogs = logs.filter((item) => item.date.slice(0, 10) === date.key);
           const totals = {
             grams: 0,
             protein: 0,

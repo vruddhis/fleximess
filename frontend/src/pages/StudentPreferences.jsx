@@ -24,9 +24,12 @@ const NUTRITION_PREFERENCES = [
 
 function StudentPreferences() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   //keep as strings for now later in API we can conveert to numbers
 
@@ -55,7 +58,49 @@ function StudentPreferences() {
     });
   }
 
-  function savePreferences() {}
+  async function savePreferences() {
+    setSaving(true);
+    setSaveMessage('');
+    setSaveError('');
+
+    const payload = {
+      username: user.username,
+      nutrition_preferences: nutritionPreferences,
+    };
+
+    for (const [meal, field] of [
+      ["Breakfast", "breakfast_calories"],
+      ["Lunch", "lunch_calories"],
+      ["Snacks", "snacks_calories"],
+      ["Dinner", "dinner_calories"],
+    ]) {
+      if (calorieTargets[meal] !== '') {
+        payload[field] = Number(calorieTargets[meal]);
+      }
+    }
+
+    try {
+      const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000")
+        .replace(/\/+$/, "");
+      const response = await fetch(`${apiBaseUrl}/api/preferences`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.detail || `Request failed (${response.status})`);
+      }
+
+      setSaveMessage("Preferences saved.");
+    } catch (error) {
+      setSaveError(`Could not save preferences: ${error.message}`);
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
     <Box className="student-log-page">
@@ -156,10 +201,13 @@ function StudentPreferences() {
           </CardContent>
         </Card>
 
+        {saveError && <Typography color="error" role="alert">{saveError}</Typography>}
+        {saveMessage && <Typography role="status">{saveMessage}</Typography>}
         <Button
           className="preferences-save-button"
           variant="contained"
           onClick={savePreferences}
+          disabled={saving}
         >
           Save preferences
         </Button>
