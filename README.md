@@ -8,4 +8,5 @@ This is a project that consolidates data from all different hostels across campu
 * **Meal Tracking:** Keep a log of your past meals.
 
 ## External Code
-*
+### Frontend
+* getDateForWeekday in GuestDashboard.jsx and StudentDashboard.jsx
