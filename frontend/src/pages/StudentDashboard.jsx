@@ -24,7 +24,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getISTDateKey, getISTDay, getISTHour } from '../utils/date';
 import { useAuth } from '../auth/authContext';
 
@@ -77,7 +77,10 @@ function getSortValue(totals, preference) {
 }
 
 async function getJson(path, signal) {
-  const response = await fetch(`${API_BASE_URL}${path}`, { signal });
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    signal,
+    credentials: 'include',
+  });
   const result = await response.json();
 
   if (!response.ok) {
@@ -100,6 +103,7 @@ function StudentDashboard(){
   const [menusLoadedFor, setMenusLoadedFor] = useState('');
   const [loadingHostels, setLoadingHostels] = useState(true);
   const [apiError, setApiError] = useState('');
+  const [sortPreferencesError, setSortPreferencesError] = useState('');
   const [expandedHostelIds, setExpandedHostelIds] = useState(new Set());
 
   const [selectedMeal, setSelectedMeal] = useState(whichMealByTime); 
@@ -110,12 +114,39 @@ function StudentDashboard(){
   const [submittedSearchQuery, setSubmittedSearchQuery] = useState('');
   const [searchMatchedHostelIds, setSearchMatchedHostelIds] = useState(new Set());
   const [sortPreferences, setSortPreferences] = useState([]);
+  const sortPreferencesChanged = useRef(false);
   
 
   const currentHour = getISTHour(); 
   const selectedDate = getDateForWeekday(selectedDay);
   const menuRequestKey = `${selectedDate}:${selectedMeal}:${hostelList.map((hostel) => hostel.id).join(',')}`;
   const loadingMenus = hostelList.length > 0 && menusLoadedFor !== menuRequestKey;
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    getJson('/api/preferences/sort', controller.signal)
+      .then((preferences) => {
+        if (
+          !Array.isArray(preferences)
+          || preferences.length > 2
+          || preferences.some((preference) => !SORT_OPTIONS.includes(preference))
+        ) {
+          throw new Error('Sort preferences response must be a list of up to two supported preferences.');
+        }
+
+        if (!sortPreferencesChanged.current) {
+          setSortPreferences(preferences);
+        }
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') {
+          setSortPreferencesError(`Could not load sort preferences: ${error.message}`);
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -191,6 +222,7 @@ function StudentDashboard(){
   }
 
   function toggleSortPreference(option) {
+    sortPreferencesChanged.current = true;
     setSortPreferences((currentPreferences) => {
       if (currentPreferences.includes(option)) {
         return currentPreferences.filter((preference) => preference !== option);
@@ -420,6 +452,11 @@ return (<Box className="dashboard-page">
           <Typography variant="body2" color="text.secondary">
             Select up to two, in priority order.
           </Typography>
+          {sortPreferencesError && (
+            <Typography color="error" role="alert">
+              {sortPreferencesError}
+            </Typography>
+          )}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
             {SORT_OPTIONS.map((option) => {
               const preferenceIndex = sortPreferences.indexOf(option);
