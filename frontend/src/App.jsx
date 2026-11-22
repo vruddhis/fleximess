@@ -7,6 +7,7 @@ import StudentDashboard from './pages/StudentDashboard'
 import StudentPreferences from './pages/StudentPreferences'
 import StudentHistory from './pages/StudentHistory'
 import StudentLogMeal from './pages/StudentLogMeal'
+import Demo from './pages/demo'
 import { AuthProvider } from './auth/AuthProvider';
 import RequireAuth from './auth/RequireAuth';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/student-signup" element={<StudentSignup/>} />
        
         <Route path="/dashboard" element={<GuestDashboard/>} />
+        <Route path="/demo" element={<Demo/>} />
         <Route element={<RequireAuth />}>
           <Route path="/student-dashboard" element={<StudentDashboard/>} />
           <Route path="/preferences" element={<StudentPreferences/>} />
