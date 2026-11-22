@@ -187,5 +187,10 @@ export function AuthProvider({ children }) {
         </div>
       )}
     </AuthContext.Provider>
-  );
+  ) ;
 }
+
+
+
+
+
