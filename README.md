@@ -10,4 +10,5 @@ This is a project that consolidates data from all different hostels across campu
 ## External Code
 ### Frontend
 * getDateForWeekday in GuestDashboard.jsx and StudentDashboard.jsx
-* Clearing after keyword search in the same two files 
+* Clearing after keyword search in the same two files
+* StudentLogMeal API endpoint
