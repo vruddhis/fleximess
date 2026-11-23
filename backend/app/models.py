@@ -1,12 +1,4 @@
 """ORM models mirroring the live Supabase schema (public schema).
-
-Supabase is the source of truth. These models must NOT be used to create or
-alter tables (no Base.metadata.create_all against Supabase). Constraint/
-ondelete details are declared only for documentation and to keep the ORM's
-view consistent with the database.
-
-Tables used by the scraper only (food_aliases, name_review, nutrition_raw),
-the `sessions` table and the `menu_details` view are intentionally not mapped.
 """
 from datetime import date, datetime
 from decimal import Decimal
